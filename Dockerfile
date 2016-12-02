@@ -17,6 +17,7 @@ RUN apk add --no-cache \
  Image::Magick \
  XML::RSS \
  XML::FeedPP \
+ Crypt::DES \
  DateTime::Format::W3CDTF \
 
 && rm -rf /root/.cpanm \
