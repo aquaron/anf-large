@@ -19,6 +19,7 @@ RUN apk add --no-cache \
  XML::FeedPP \
  Crypt::DES \
  DateTime::Format::W3CDTF \
+ String::Random \
 
 && rm -rf /root/.cpanm \
 && apk del g++ gcc make perl-dev expat-dev 
