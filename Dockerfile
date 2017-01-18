@@ -18,8 +18,11 @@ RUN apk add --no-cache \
  XML::RSS \
  XML::FeedPP \
  Crypt::DES \
+ Crypt::Blowfish \
  DateTime::Format::W3CDTF \
  String::Random \
+ Text::CSV \
+ Archive::Zip \
 
 && rm -rf /root/.cpanm \
 && apk del g++ gcc make perl-dev expat-dev 
