@@ -1,0 +1,30 @@
+FROM aquaron/dnf
+MAINTAINER Paul Pham <docker@aquaron.com>
+
+RUN apt-get update && apt-get install -y \
+ libxml2-dev \
+ perlmagick \
+ libnet-ssleay-perl \
+ libcrypt-ssleay-perl \
+ libxml-libxml-perl \
+
+&& cpanm -n \
+ Flickr::API \
+ Flickr::Upload \
+ Net::Twitter \
+ WWW::Facebook::API \
+ LWP::Authen::OAuth \
+ PDF::API2 \
+ XML::RSS \
+ XML::FeedPP \
+ Crypt::DES \
+ Crypt::Blowfish \
+ DateTime::Format::W3CDTF \
+ String::Random \
+ Text::CSV \
+ Archive::Zip \
+
+&& apt-get purge -y g++ gcc make \
+&& apt-get autoremove -y \
+&& rm -rf /root/.cpanm /var/lib/apt/lists/* 
+
