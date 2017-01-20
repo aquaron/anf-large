@@ -2,7 +2,6 @@ FROM aquaron/anf
 MAINTAINER Paul Pham <docker@aquaron.com>
 
 RUN apk add --no-cache \
- openssl \
  libxml2-dev \
  imagemagick-dev \
 
