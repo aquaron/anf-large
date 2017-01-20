@@ -1,4 +1,4 @@
-FROM aquaron/dnf
+FROM aquaron/anf:debian
 MAINTAINER Paul Pham <docker@aquaron.com>
 
 RUN apt-get update && apt-get install -y \
