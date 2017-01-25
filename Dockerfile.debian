@@ -1,12 +1,19 @@
 FROM aquaron/anf:debian
 MAINTAINER Paul Pham <docker@aquaron.com>
 
+ENV _prince=prince-11-linux-generic-x86_64
+
 RUN apt-get update && apt-get install -y \
+ wget \
  libxml2-dev \
  perlmagick \
  libnet-ssleay-perl \
  libcrypt-ssleay-perl \
  libxml-libxml-perl \
+
+&& wget http://www.princexml.com/download/${_prince}.tar.gz -O - | tar xz \
+&& echo "" | ${_prince}/install.sh \
+&& rm -rf ${_prince} \
 
 && cpanm -n \
  Flickr::API \
@@ -24,7 +31,7 @@ RUN apt-get update && apt-get install -y \
  Text::CSV \
  Archive::Zip \
 
-&& apt-get purge -y g++ gcc make \
+&& apt-get purge -y g++ gcc make wget \
 && apt-get autoremove -y \
 && rm -rf /root/.cpanm /var/lib/apt/lists/* 
 
