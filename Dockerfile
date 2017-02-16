@@ -6,6 +6,7 @@ RUN apk add --no-cache \
  imagemagick-dev \
 
 && cpanm -n \
+ Plack \
  Net::SSLeay \
  Flickr::API \
  Flickr::Upload \

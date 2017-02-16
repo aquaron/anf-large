@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
 && rm -rf ${_prince} \
 
 && cpanm -n \
+ Plack \
  Flickr::API \
  Flickr::Upload \
  Net::Twitter \
