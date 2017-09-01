@@ -2,8 +2,14 @@ FROM aquaron/anf
 MAINTAINER Paul Pham <docker@aquaron.com>
 
 RUN apk add --no-cache \
- libxml2-dev \
- imagemagick-dev \
+  curl \
+  libxml2-dev \
+
+&& cd /tmp \
+  && curl -L https://www.imagemagick.org/download/ImageMagick.tar.gz | tar xzvf - \
+  && cd "$(ls -d Image*)" \
+  && ./configure -with-perl; make; make install; ldconfig /usr/local/lib \
+  && perl -MImage::Magick -le 'print "Success: " . Image::Magick->QuantumDepth' \
 
 && cpanm -n \
  Plack \
@@ -14,7 +20,6 @@ RUN apk add --no-cache \
  WWW::Facebook::API \
  LWP::Authen::OAuth \
  PDF::API2 \
- Image::Magick \
  XML::RSS \
  XML::FeedPP \
  Crypt::DES \
@@ -25,5 +30,5 @@ RUN apk add --no-cache \
  Archive::Zip \
 
 && rm -rf /root/.cpanm \
-&& apk del g++ gcc make perl-dev expat-dev 
+&& apk del g++ gcc make perl-dev expat-dev curl
 
