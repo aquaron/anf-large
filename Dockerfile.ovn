@@ -1,0 +1,30 @@
+FROM aquaron/anf:debian
+MAINTAINER Paul Pham <docker@aquaron.com>
+
+RUN apt-get update && apt-get install -y \
+ wget \
+ perlmagick \
+ libnet-ssleay-perl \
+ libcrypt-ssleay-perl \
+ libxml-libxml-perl \
+ libidn11-dev \
+ libxml2-dev \
+
+&& cpanm -n \
+ Flickr::API \
+ Flickr::Upload \
+ Net::Twitter \
+ WWW::Facebook::API \
+ LWP::Authen::OAuth \
+
+ DateTime \
+ Text::Unaccent \
+ AnyEvent::XMPP::Client \
+ Tie::IxHash \
+ PHP::HTTPBuildQuery \
+
+&& apt-get purge -y g++ gcc make wget libidn11-dev libxml2-dev \
+&& apt-get autoremove -y \
+&& rm -rf /root/.cpanm /var/lib/apt/lists/* \
+
+&& perl -MImage::Magick -le 'print "Image::Magick Installation Quantum Depth: " . Image::Magick->QuantumDepth'
