@@ -1,9 +1,11 @@
 FROM aquaron/anf:debian
 MAINTAINER Paul Pham <docker@aquaron.com>
 
-ENV _prince=prince-11-linux-generic-x86_64
+ENV \
+ _image=aquaron/anf-large:debian \
+ _prince=prince-11-linux-generic-x86_64
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update -q && apt-get install -qy \
  wget \
  libxml2-dev \
  perlmagick \
@@ -32,7 +34,7 @@ RUN apt-get update && apt-get install -y \
  Text::CSV \
  Archive::Zip \
 
-&& apt-get purge -y g++ gcc make wget \
-&& apt-get autoremove -y \
+&& apt-get purge -qy g++ gcc make wget \
+&& apt-get autoremove -qy \
 && rm -rf /root/.cpanm /var/lib/apt/lists/* 
 

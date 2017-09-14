@@ -1,12 +1,14 @@
 FROM aquaron/anf
 MAINTAINER Paul Pham <docker@aquaron.com>
 
-RUN apk add --no-cache \
+ENV _image=aquaron/anf-large
+
+RUN apk add -q --no-cache \
   curl \
   libxml2-dev \
 
 && cd /tmp \
-  && curl -L https://www.imagemagick.org/download/ImageMagick.tar.gz | tar xzvf - \
+  && curl -sL https://www.imagemagick.org/download/ImageMagick.tar.gz | tar xzvf - \
   && _imagemagick="$(ls -d Image*)" \
   && cd $_imagemagick \
   && ./configure -with-perl; make -j3; make install-strip; ldconfig /usr/local/lib \
@@ -31,7 +33,7 @@ RUN apk add --no-cache \
  Archive::Zip \
 
 && rm -rf /root/.cpanm \
-&& apk del g++ gcc curl make perl-dev expat-dev libxml2-dev \
+&& apk del --no-cache g++ gcc curl make perl-dev expat-dev libxml2-dev \
 && apk add --no-cache --virtual .gettext gettext \
 && mv /usr/bin/envsubst /tmp/ \
 && runDeps="$( \
@@ -42,7 +44,7 @@ RUN apk add --no-cache \
         | sort -u \
    )" \
 && apk add --no-cache $runDeps expat \
-&& apk del .gettext \
+&& apk del --no-cache .gettext \
 && mv /tmp/envsubst /usr/local/bin/ \
 
 && perl -MImage::Magick -le 'print "Image::Magick Installation Quantum Depth: " . Image::Magick->QuantumDepth'

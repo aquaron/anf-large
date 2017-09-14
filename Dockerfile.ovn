@@ -1,7 +1,9 @@
 FROM aquaron/anf:debian
 MAINTAINER Paul Pham <docker@aquaron.com>
 
-RUN apt-get update && apt-get install -y \
+ENV _image=aquaron/anf-large:ovn
+
+RUN apt-get update -q && apt-get install -qy \
  wget \
  perlmagick \
  libnet-ssleay-perl \
@@ -23,8 +25,8 @@ RUN apt-get update && apt-get install -y \
  Tie::IxHash \
  PHP::HTTPBuildQuery \
 
-&& apt-get purge -y g++ gcc make wget libidn11-dev libxml2-dev \
-&& apt-get autoremove -y \
+&& apt-get purge -qy g++ gcc make wget libidn11-dev libxml2-dev \
+&& apt-get autoremove -qy \
 && rm -rf /root/.cpanm /var/lib/apt/lists/* \
 
 && perl -MImage::Magick -le 'print "Image::Magick Installation Quantum Depth: " . Image::Magick->QuantumDepth'
