@@ -6,12 +6,14 @@ ENV _image=aquaron/anf-large
 RUN apk add -q --no-cache \
   curl \
   libxml2-dev \
+  libjpeg-turbo-dev \
+  libpng-dev \
 
 && cd /tmp \
   && curl -sL https://www.imagemagick.org/download/ImageMagick.tar.gz | tar xzvf - \
   && _imagemagick="$(ls -d Image*)" \
   && cd $_imagemagick \
-  && ./configure -with-perl; make -j3; make install-strip; ldconfig /usr/local/lib \
+  && ./configure -with-perl -with-png -with-jpeg; make -j3; make install-strip; ldconfig /usr/local/lib \
   && cd ..; rm -r $_imagemagick \
 
 && cpanm -n \
